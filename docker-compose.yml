@@ -1,0 +1,22 @@
+services:
+  notebook:
+    build: .
+    image: bankruptcy-cp2:latest
+    container_name: bankruptcy-cp2-notebook
+    ports:
+      - "8888:8888"
+    volumes:
+      - ./:/app
+    working_dir: /app
+    environment:
+      JUPYTER_TOKEN: ""
+      PYTHONIOENCODING: utf-8
+    command:
+      - jupyter
+      - lab
+      - --ip=0.0.0.0
+      - --port=8888
+      - --no-browser
+      - --allow-root
+      - --ServerApp.token=
+      - --ServerApp.password=
