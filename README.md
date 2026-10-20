@@ -1,16 +1,21 @@
-# Bankruptcy Prediction — CP2 work folder
+# Предсказание банкротства компаний по финансовым показателям
 
-Адаптированная CP2-работа для проекта **«Предсказание банкротства компании по её финансовым показателям»** (hseml-group-project-Yuliasx). Структура и интерфейсы повторяют CP1-репозиторий: `src/preprocessing.py`, `src/modeling.py`, существующие `notebooks/02_baseline.ipynb` и `notebooks/03_experiments.ipynb` использованы как точка старта.
+Учебный проект по машинному обучению (НИУ ВШЭ). Задача — бинарная классификация: по финансовой отчётности американских публичных компаний (NYSE/NASDAQ) — выручке, чистой прибыли, EBITDA, активам, обязательствам, долгосрочному долгу и другим показателям — предсказать, обанкротится ли компания.
 
-В этой папке:
+**Автор:** Юлия Сачкова
 
-- `notebooks/cp2.ipynb` — основной CP2-ноутбук с 8 экспериментами, PCA, финальной моделью и feature importance.
-- `src/experiments.py` — CLI-оркестратор (`python -m src.experiments`).
-- `models/experiments.{csv,json}` + `models/final_model.pkl` — артефакты для отчёта.
+**Итог:** финальная модель LightGBM — F1 = 0.280, PR-AUC = 0.222, ROC-AUC = 0.773 на тесте (baseline LogReg на val: F1 = 0.178).
+
+- `notebooks/01_eda.ipynb` — разведочный анализ данных
+- `notebooks/02_baseline.ipynb` — baseline-модель
+- `notebooks/03_experiments.ipynb` — первые эксперименты
+- `notebooks/cp2.ipynb` — 8 экспериментов, PCA, финальная модель и feature importance
+- `report/report.md` — отчёт: данные, обработка, визуализации, baseline
+- `src/experiments.py` — CLI-оркестратор (`python -m src.experiments`)
 
 ---
 
-## Что покрывает CP2 по критериям
+## Что сделано
 
 | Критерий | Где |
 |---|---|
@@ -24,7 +29,7 @@
 
 ---
 
-## Структура папки
+## Структура репозитория
 
 ```text
 .
@@ -37,13 +42,17 @@
 │   ├── experiments.json                 ← полные метрики и гиперпараметры
 │   └── final_model.pkl                  ← финальная модель + threshold
 ├── notebooks/
-│   ├── 02_baseline.ipynb                ← из исходного репо (CP1)
-│   ├── 03_experiments.ipynb             ← из исходного репо (CP1)
-│   └── cp2.ipynb                        ← новый CP2-ноутбук
+│   ├── 01_eda.ipynb                     ← разведочный анализ данных
+│   ├── 02_baseline.ipynb                ← baseline-модель
+│   ├── 03_experiments.ipynb             ← первые эксперименты
+│   └── cp2.ipynb                        ← 8 экспериментов, PCA, финальная модель
+├── report/
+│   ├── report.md                        ← отчёт
+│   └── images/                          ← графики EDA и baseline
 ├── src/
-│   ├── preprocessing.py                 ← портирован из CP1, поддержка fyear/year
-│   ├── modeling.py                      ← портирован из CP1
-│   └── experiments.py                   ← новый: 8 моделей, GridSearch/Random, PCA, финал
+│   ├── preprocessing.py                 ← загрузка, очистка, сплит
+│   ├── modeling.py                      ← метрики, LogReg-baseline, подбор порога
+│   └── experiments.py                   ← 8 моделей, GridSearch/Random, PCA, финал
 ├── scripts/
 │   └── build_cp2_notebook.py            ← one-shot генератор cp2.ipynb
 ├── tests/
